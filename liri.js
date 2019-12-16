@@ -1,8 +1,4 @@
 //=============
-// LIRI : BASIC FUNCTIONS ARE TO SEARCH SPOTIFY FOR SONGS, BANDS IN TOWN FOR CONCERTS AND OMDB FOR MOVIES
-//=============
-
-//=============
 // GLOBAL VARIABLES
 //=============
 
@@ -14,7 +10,6 @@ const axios = require("axios");
 const moment = require("moment");
 const fs = require("fs");
 
-
 // Take in the command line arguments
 const arg1 = process.argv[2];
 const arg2 = process.argv.slice(3).join(" ");
@@ -22,7 +17,6 @@ const arg2 = process.argv.slice(3).join(" ");
 //=============
 // START LIRI
 //=============
-
 
 function startLiri(arg1, arg2) {
     switch (arg1) {
@@ -44,7 +38,6 @@ function startLiri(arg1, arg2) {
 }
 
 startLiri(arg1, arg2);
-
 
 //=============
 // BANDS IN TOWN
@@ -68,15 +61,6 @@ function getMyBands(bandName) {
     });
 }
 
-// function doWhatItSays(){
-//     fs.readFile("random.txt", "utf8", function(err, data){
-//         if(err) throw err;
-//         console.log(JSON.stringify(data));
-//         var dataArr = data.split(",");
-//         startLiri(dataArr[0],dataArr[1]);
-//     })
-// }
-
 //=============
 // SPOTIFY 
 //=============
@@ -97,12 +81,13 @@ function getMeSpotify(songName) {
             let songs = data.tracks.items;
             //console.log(JSON.stringify(songs, null, 4));
             for (var i = 0; i < songs.length; i++) {
-
-                console.log("Artist: " + songs[i].artists[0].name);
-                console.log("Album: " + songs[i].album.name)
-                console.log("Track: " + songs[i].name);
-                console.log("Preview Link: " + songs[i].preview_url);
-                console.log("----------");
+                let songReport = `\n
+                Artist: ${songs[i].artists[0].name}
+                Album: ${songs[i].album.name}
+                Track: ${songs[i].name}
+                Preview Link: ${songs[i].preview_url}
+                ------------------------`
+                console.log(songReport)
             }
         })
     }
@@ -112,6 +97,8 @@ function getMeSpotify(songName) {
 // OMDB
 //=============
 
+
+
 // * Title of the movie.
 // * Year the movie came out.
 // * IMDB Rating of the movie.
@@ -120,3 +107,16 @@ function getMeSpotify(songName) {
 // * Language of the movie.
 // * Plot of the movie.
 // * Actors in the movie.
+
+//=============
+// DO WHAT IT SAYS
+//=============
+
+// function doWhatItSays(){
+//     fs.readFile("random.txt", "utf8", function(err, data){
+//         if(err) throw err;
+//         console.log(JSON.stringify(data));
+//         var dataArr = data.split(",");
+//         startLiri(dataArr[0],dataArr[1]);
+//     })
+// }
