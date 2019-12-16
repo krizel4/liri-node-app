@@ -6,14 +6,18 @@
 // GLOBAL VARIABLES
 //=============
 
-const dotenv = require("dotenv").config();
+require("dotenv").config();
 const keys = require("./keys.js");
-var Spotify = require('node-spotify-api');
-var spotify = new Spotify(keys.spotify);
+const Spotify = require('node-spotify-api');
+const spotify = new Spotify(keys.spotify);
+const axios = require("axios");
+const moment = require("moment");
+const fs = require("fs");
+
 
 // Take in the command line arguments
-var arg1 = process.argv[2];
-var arg2 = process.argv.slice(3).join(" ");
+const arg1 = process.argv[2];
+const arg2 = process.argv.slice(3).join(" ");
 
 //=============
 // START LIRI
@@ -41,6 +45,38 @@ function startLiri(arg1, arg2) {
 
 startLiri(arg1, arg2);
 
+
+//=============
+// BANDS IN TOWN
+//=============
+
+function getMyBands(bandName) {
+    const queryURL = "https://rest.bandsintown.com/artists/" + bandName + "/events?app_id=codingbootcamp";
+    axios.get(queryURL).then(function (response) {
+        if (response.data.length <= 0) {
+            console.log("Please type in an artist.")
+        } else {
+            for (var i = 0; i < response.data.length; i++) {
+                let concertInfo = `\n
+                Venue: ${response.data[i].venue.name}
+                Location: ${response.data[i].venue.city + ", " + response.data[0].venue.region}
+                Event Date: ${moment(response.data[i].datetime).subtract(10, 'days').calendar()},
+                ------------------------`
+                console.log(concertInfo)
+            }
+        }
+    });
+}
+
+// function doWhatItSays(){
+//     fs.readFile("random.txt", "utf8", function(err, data){
+//         if(err) throw err;
+//         console.log(JSON.stringify(data));
+//         var dataArr = data.split(",");
+//         startLiri(dataArr[0],dataArr[1]);
+//     })
+// }
+
 //=============
 // SPOTIFY 
 //=============
@@ -55,47 +91,22 @@ function getMeSpotify(songName) {
             limit: 5
         }, function (err, data) {
             if (err) {
-                console.log("err occurred: " + err)
+                console.log("Error Occurred: " + err)
                 return;
             }
-            var songs = data.tracks.items;
+            let songs = data.tracks.items;
             //console.log(JSON.stringify(songs, null, 4));
             for (var i = 0; i < songs.length; i++) {
 
-                console.log("album: " + songs[i].album.name)
-                console.log("song name: " + songs[i].name);
-                console.log("preview link: " + songs[i].preview_url);
-                console.log("artist name: " + songs[i].artists[0].name);
-                console.log("_______________________");
+                console.log("Artist: " + songs[i].artists[0].name);
+                console.log("Album: " + songs[i].album.name)
+                console.log("Track: " + songs[i].name);
+                console.log("Preview Link: " + songs[i].preview_url);
+                console.log("----------");
             }
         })
     }
 }
-
-//=============
-// BANDS IN TOWN
-//=============
-
-function getMyBands(bandName){
-    var queryQRL = "";
-    axios.get(queryQRL).then(function(response){
-
-    })
-}
-function doWhatItSays(){
-    fs.readFile("random.txt", "utf8", function(err, data){
-        if(err) throw err;
-        console.log(JSON.stringify(data));
-        var dataArr = data.split(",");
-        startLiri(dataArr[0],daataArr[1]);
-    })
-}
-
-// Name of the venue
-// Venue location
-// Date of the Event (using MM/DD/YYYY)
-
-// LINK MOMENT.JS?
 
 //=============
 // OMDB
