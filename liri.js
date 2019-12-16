@@ -51,6 +51,7 @@ function getMyBands(bandName) {
         } else {
             for (var i = 0; i < response.data.length; i++) {
                 let concertInfo = `\n
+                ------------------------
                 Venue: ${response.data[i].venue.name}
                 Location: ${response.data[i].venue.city + ", " + response.data[0].venue.region}
                 Event Date: ${moment(response.data[i].datetime).subtract(10, 'days').calendar()},
@@ -82,6 +83,7 @@ function getMeSpotify(songName) {
             //console.log(JSON.stringify(songs, null, 4));
             for (var i = 0; i < songs.length; i++) {
                 let songReport = `\n
+                ------------------------
                 Artist: ${songs[i].artists[0].name}
                 Album: ${songs[i].album.name}
                 Track: ${songs[i].name}
@@ -97,26 +99,44 @@ function getMeSpotify(songName) {
 // OMDB
 //=============
 
+function getMovieInfo(movieTitle) {
+    const queryURL = "https://www.omdbapi.com/?t=" + movieTitle + "&apikey=trilogy";
+    axios.get(queryURL).then(function (response) {
+                if (response.data.Title != undefined) {
+                    for (var i = 0; i < movieTitle.length; i++) {
+                        let movieReport = `\n
+                    ------------------------
+                    Movie Title: ${response.data.Title}
+                    Rating: ${response.data.imdbRating}
+                    Rotten Tomatoes: ${response.data.tomatoRating}
+                    Country: ${response.data.Country}
+                    Language: ${response.data.Language}
+                    Plot: ${response.data.Plot}
+                    Actors: ${response.data.Actors}
+                    ------------------------`
+                        console.log(movieReport);
+                    }
+                } else {
+                    getMovieInfo("Mr. Nobody");
+                }
+            }), function (err, data) {
+                if (err) {
+                    console.log("Error Occurred: " + err)
+                    return;
+                }
+            }
+        }
 
-
-// * Title of the movie.
-// * Year the movie came out.
-// * IMDB Rating of the movie.
-// * Rotten Tomatoes Rating of the movie.
-// * Country where the movie was produced.
-// * Language of the movie.
-// * Plot of the movie.
-// * Actors in the movie.
 
 //=============
 // DO WHAT IT SAYS
 //=============
 
-// function doWhatItSays(){
-//     fs.readFile("random.txt", "utf8", function(err, data){
-//         if(err) throw err;
-//         console.log(JSON.stringify(data));
-//         var dataArr = data.split(",");
-//         startLiri(dataArr[0],dataArr[1]);
-//     })
-// }
+function doWhatItSays(){
+    fs.readFile("random.txt", "utf8", function(err, data){
+        if(err) throw err;
+        console.log(JSON.stringify(data));
+        var dataArr = data.split(",");
+        startLiri(dataArr[0],dataArr[1]);
+    })
+}
