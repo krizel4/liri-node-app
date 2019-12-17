@@ -67,8 +67,8 @@ function getMyBands(bandName) {
 //=============
 
 function getMeSpotify(songName) {
-    if (songName == undefined) {
-        songName = "The Sign"
+    if (songName === undefined) {
+        songName = "The Sign Ace of Base"
     } else {
         spotify.search({
             type: "track",

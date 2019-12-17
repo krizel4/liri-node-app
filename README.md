@@ -8,12 +8,15 @@ This app sends requests using the `axios` package to the Bands in Town, Spotify 
 # How to Run the App
 The app searches for music, concerts and OMDB. To search for any of them, below are the arguments:
 
-* spotify-this-song: This will search through Spotify for music information.
-* concert-this: This will search Bands in Town for any upcoming concerts as defined by the user.
-* movie-this: This will search through OMDB for information on a movie, such as a rating, Rotten Tomatoes score, and more.
-* do-what-it-says: This uses the `fs` Node package to take text from random.txt and then use it to call one of LIRI's commands.
+* `spotify-this-song`: This will search through Spotify for music information.
+* `concert-this`: This will search Bands in Town for any upcoming concerts as defined by the user.
+* `movie-this`: This will search through OMDB for information on a movie, such as a rating, Rotten Tomatoes score, and more.
+* `do-what-it-says`: This uses the `fs` Node package to take text from random.txt and then use it to call one of LIRI's commands.
 
 # Preview of the App
+![Liri Bot App: UCLA Bootcamp Assignment](assets/img/ScreenShot.png)
+
+You can see it in action [here](https://drive.google.com/file/d/1g4MEw_PsN7Uap1SHilQvIk4d_afIiBAs/view).
 
 # Built With
 * Node.js
