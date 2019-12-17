@@ -103,12 +103,12 @@ function getMovieInfo(movieTitle) {
     const queryURL = "https://www.omdbapi.com/?t=" + movieTitle + "&apikey=trilogy";
     axios.get(queryURL).then(function (response) {
                 if (response.data.Title != undefined) {
-                    for (var i = 0; i < movieTitle.length; i++) {
+                    for (var i = 0; i < 3; i++) {
                         let movieReport = `\n
                     ------------------------
                     Movie Title: ${response.data.Title}
                     Rating: ${response.data.imdbRating}
-                    Rotten Tomatoes: ${response.data.tomatoRating}
+                    Rotten Tomatoes: ${response.data.Ratings[1].Value}
                     Country: ${response.data.Country}
                     Language: ${response.data.Language}
                     Plot: ${response.data.Plot}
