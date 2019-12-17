@@ -14,7 +14,7 @@ The app searches for music, concerts and OMDB. To search for any of them, below 
 * `do-what-it-says`: This uses the `fs` Node package to take text from random.txt and then use it to call one of LIRI's commands.
 
 # Preview of the App
-![Liri Bot App: UCLA Bootcamp Assignment](assets/img/ScreenShot.png)
+![Liri Bot App: UCLA Bootcamp Assignment](assets/imgs/ScreenShot.png)
 
 You can see it in action [here](https://drive.google.com/file/d/1g4MEw_PsN7Uap1SHilQvIk4d_afIiBAs/view).
 
